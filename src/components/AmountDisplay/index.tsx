@@ -22,10 +22,9 @@ const AmountDisplay: React.FC<AmountDisplayProps> = ({ children, formatOptions }
   }, [])
 
   useAsyncEffect(async () => {
-    console.log('rerender')
-    const finalAmountToDisplay = await currencyConverter.convertCurrency(children as string, formatOptions)
+    const finalAmountToDisplay = await currencyConverter.convertCurrency(children.toString(), formatOptions)
     setDisplayAmount(finalAmountToDisplay)
-  }, [children, currencyConverter.exchangeRates, formatOptions]) // Exchange rates not a state variable?
+  }, [children])
 
   return (
     <div>
