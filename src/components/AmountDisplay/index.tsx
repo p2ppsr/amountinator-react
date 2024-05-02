@@ -9,7 +9,7 @@ interface FormatOptions {
 }
 
 interface AmountDisplayProps {
-  children: string
+  children: string | number
   formatOptions?: FormatOptions
 }
 
