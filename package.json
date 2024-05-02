@@ -1,5 +1,5 @@
 {
-  "name": "amountinator",
+  "name": "amountinator-react",
   "version": "0.1.0",
   "description": "Currency amount display components",
   "author": "Peer-to-peer Privacy Systems Research, LLC",
@@ -19,12 +19,12 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/p2ppsr/amountinator.git"
+    "url": "git+https://github.com/p2ppsr/amountinator-react.git"
   },
   "bugs": {
-    "url": "https://github.com/p2ppsr/amountinator/issues"
+    "url": "https://github.com/p2ppsr/amountinator-react/issues"
   },
-  "homepage": "https://github.com/p2ppsr/amountinator#readme",
+  "homepage": "https://github.com/p2ppsr/amountinator-react#readme",
   "dependencies": {
     "@emotion/react": "^11.11.1",
     "@emotion/styled": "^11.11.0",
