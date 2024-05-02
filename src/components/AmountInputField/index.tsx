@@ -20,12 +20,13 @@ const AmountInputField = ({ onSatoshisChange }) => {
       setAmount(input)
       try {
         const satoshis = await currencyConverter.convertToSatoshis(input)
+        console.log('satoshisssss', satoshis)
         onSatoshisChange(satoshis)
       } catch (error) {
         console.error('Error converting currency:', error)
       }
     }
-  }, [amount, onSatoshisChange])
+  }, [amount])
 
   return (
     <TextField
