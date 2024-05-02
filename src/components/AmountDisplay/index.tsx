@@ -22,7 +22,7 @@ const AmountDisplay = ({ children, formatOptions }: AmountDisplayProps) => {
   }, [])
 
   useAsyncEffect(async () => {
-    const finalAmountToDisplay = await currencyConverter.convertCurrency(children.toString(), formatOptions)
+    const finalAmountToDisplay = await currencyConverter.convertCurrency(children, formatOptions)
     setDisplayAmount(finalAmountToDisplay)
   }, [children])
 
