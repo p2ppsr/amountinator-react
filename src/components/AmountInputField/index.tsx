@@ -10,8 +10,12 @@ const AmountInputField = ({ onSatoshisChange }) => {
   const currencyConverter = new CurrencyConverter()
 
   useAsyncEffect(async () => {
-    await currencyConverter.initialize()
-    setCurrencySymbol(currencyConverter.getCurrencySymbol())
+    try {
+      await currencyConverter.initialize()
+      setCurrencySymbol(currencyConverter.getCurrencySymbol())
+    } catch (error) {
+      console.error('Failed to fetch exchange rates:', error)
+    }
   }, [])
 
   const handleAmountChange = useCallback(async (event) => {
