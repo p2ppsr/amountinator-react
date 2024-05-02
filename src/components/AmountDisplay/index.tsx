@@ -15,7 +15,7 @@ interface AmountDisplayProps {
 
 const AmountDisplay: React.FC<AmountDisplayProps> = ({ children, formatOptions }) => {
   const [displayAmount, setDisplayAmount] = useState<string>('')
-  const currencyConverter = new CurrencyConverter()
+  let currencyConverter = new CurrencyConverter()
 
   useAsyncEffect(async () => {
     await currencyConverter.initialize()

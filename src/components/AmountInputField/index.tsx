@@ -25,7 +25,7 @@ const AmountInputField = ({ onSatoshisChange }) => {
         console.error('Error converting currency:', error)
       }
     }
-  }, [amount])
+  }, [])
 
   return (
     <TextField
