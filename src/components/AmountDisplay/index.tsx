@@ -13,7 +13,7 @@ interface AmountDisplayProps {
   formatOptions?: FormatOptions
 }
 
-const AmountDisplay: React.FC<AmountDisplayProps> = ({ children, formatOptions }) => {
+const AmountDisplay = ({ children, formatOptions }: AmountDisplayProps) => {
   const [displayAmount, setDisplayAmount] = useState<string>('')
   let currencyConverter = new CurrencyConverter()
 
