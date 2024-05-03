@@ -1,6 +1,7 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState } from 'react'
 import { CurrencyConverter } from 'amountinator'
 import useAsyncEffect from 'use-async-effect'
+import { Tooltip, Typography } from '@mui/material'
 
 interface FormatOptions {
   decimalPlaces?: number
@@ -9,29 +10,34 @@ interface FormatOptions {
 }
 
 interface AmountDisplayProps {
-  children: string | number
+  paymentAmount: number | string
   formatOptions?: FormatOptions
 }
 
-const AmountDisplay = ({ children, formatOptions }: AmountDisplayProps) => {
-  const [displayAmount, setDisplayAmount] = useState<string>('')
-  let currencyConverter = new CurrencyConverter()
+const AmountDisplay = ({ paymentAmount, formatOptions }: AmountDisplayProps) => {
+  const [displayAmount, setDisplayAmount] = useState<{
+    formattedAmount: string;
+    hoverText?: string | undefined;
+  }>({
+    formattedAmount: ''
+  })
+  const currencyConverter = new CurrencyConverter()
 
   useAsyncEffect(async () => {
-    // Note: Handle errors at a higher layer!
-    await currencyConverter.initialize()
-  }, [])
-
-  useAsyncEffect(async () => {
-    // Note: Handle errors at a higher layer!
-    const finalAmountToDisplay = await currencyConverter.convertCurrency(children, formatOptions)
-    setDisplayAmount(finalAmountToDisplay)
-  }, [children])
+    try {
+      await currencyConverter.initialize()
+      const convertedAmount = await currencyConverter.convertAmount(paymentAmount, formatOptions)
+      setDisplayAmount(convertedAmount)
+    } catch (error) {
+      console.error('Failed to convert amount:', error)
+      // setDisplayAmount('Error')
+    }
+  }, [paymentAmount, formatOptions])
 
   return (
-    <div>
-      {displayAmount}
-    </div>
+    <Tooltip title={displayAmount.hoverText}>
+      <Typography>{displayAmount.formattedAmount}</Typography>
+    </Tooltip>
   )
 }
 export default AmountDisplay

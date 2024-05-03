@@ -34,8 +34,8 @@ const useCurrencyDisplay = (amount: string | number, formatOptions?: FormatOptio
   useAsyncEffect(async () => {
     if (isInitialized) {
       try {
-        const finalAmountToDisplay = await currencyConverter.convertCurrency(amount.toString(), formatOptions)
-        setDisplayAmount(finalAmountToDisplay)
+        const finalAmountToDisplay = await currencyConverter.convertAmount(amount.toString(), formatOptions)
+        setDisplayAmount(finalAmountToDisplay.formattedAmount)
       } catch (err) {
         setError(err as Error)
       }

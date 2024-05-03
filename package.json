@@ -30,7 +30,7 @@
     "@emotion/styled": "^11.11.0",
     "@mui/icons-material": "^5.11.16",
     "@mui/material": "^5.13.6",
-    "amountinator": "^0.1.5",
+    "amountinator": "^0.1.12",
     "react": "^18.2.0",
     "use-async-effect": "^2.2.7"
   },
