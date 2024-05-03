@@ -18,20 +18,14 @@ const AmountDisplay = ({ children, formatOptions }: AmountDisplayProps) => {
   let currencyConverter = new CurrencyConverter()
 
   useAsyncEffect(async () => {
-    try {
-      await currencyConverter.initialize()
-    } catch (error) {
-      console.error('Failed to fetch exchange rates:', error)
-    }
+    // Note: Handle errors at a higher layer!
+    await currencyConverter.initialize()
   }, [])
 
   useAsyncEffect(async () => {
-    try {
-      const finalAmountToDisplay = await currencyConverter.convertCurrency(children, formatOptions)
-      setDisplayAmount(finalAmountToDisplay)
-    } catch (error) {
-      console.error('Could not convert amount:', error)
-    }
+    // Note: Handle errors at a higher layer!
+    const finalAmountToDisplay = await currencyConverter.convertCurrency(children, formatOptions)
+    setDisplayAmount(finalAmountToDisplay)
   }, [children])
 
   return (
