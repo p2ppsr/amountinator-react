@@ -1,4 +1,4 @@
-import React, { useState, useCallback } from 'react'
+import React, { useState, useCallback, useMemo } from 'react'
 import TextField from '@mui/material/TextField'
 import InputAdornment from '@mui/material/InputAdornment'
 import { CurrencyConverter } from 'amountinator'
@@ -7,7 +7,7 @@ import useAsyncEffect from 'use-async-effect'
 const AmountInputField = ({ onSatoshisChange }) => {
   const [amount, setAmount] = useState('')
   const [currencySymbol, setCurrencySymbol] = useState('$')
-  const currencyConverter = new CurrencyConverter()
+  const currencyConverter = useMemo(() => new CurrencyConverter(), [])
 
   useAsyncEffect(async () => {
     // Note: Handle errors at a higher layer!
@@ -17,13 +17,18 @@ const AmountInputField = ({ onSatoshisChange }) => {
 
   const handleAmountChange = useCallback(async (event) => {
     const input = event.target.value.replace(/[^0-9.]/g, '')
-    if (input !== amount) {
-      setAmount(input)
-      // Note: Handle errors at a higher layer!
-      const satoshis = await currencyConverter.convertToSatoshis(input)
-      onSatoshisChange(satoshis)
+
+    setAmount(input)
+
+    // Note: Handle errors at a higher layer!
+    if (input === '' || input === '.' || input === '..') {
+      onSatoshisChange(null)
+      return
     }
-  }, [])
+
+    const satoshis = await currencyConverter.convertToSatoshis(input)
+    onSatoshisChange(satoshis)
+  }, [currencyConverter, onSatoshisChange])
 
   return (
     <TextField
